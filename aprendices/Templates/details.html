@@ -1,0 +1,50 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'main' %}" class="text-success">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'all_aprendices' %}" class="text-success">Lista Aprendices</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ aprendiz.nombre }} {{ aprendiz.apellido }}</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow">
+        <div class="card-header bg-sena text-white">
+            <h4 class="mb-0">Perfil del Aprendiz</h4>
+        </div>
+        <div class="card-body">
+            <div class="row align-items-center">
+                <div class="col-md-3 text-center">
+                    <div class="rounded-circle bg-secondary d-flex justify-content-center align-items-center mx-auto text-white" 
+                         style="width: 150px; height: 150px; font-size: 2.5rem;">
+                        {{ aprendiz.nombre|slice:":1" }}{{ aprendiz.apellido|slice:":1" }}
+                    </div>
+                    <h5 class="mt-3 text-primary">{{ aprendiz.nombre }} {{ aprendiz.apellido }}</h5>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-12 mb-3 border-start border-success border-4 ps-3 bg-light py-2 rounded">
+                            <h6 class="text-secondary fw-bold">Información Personal</h6>
+                            <p class="mb-1"><strong>Documento identidad:</strong> {{ aprendiz.documento_identidad }}</p>
+                            <p class="mb-1"><strong>Nombre:</strong> {{ aprendiz.nombre }}</p>
+                            <p class="mb-1"><strong>Apellido:</strong> {{ aprendiz.apellido }}</p>
+                            <p class="mb-0"><strong>Fecha Nacimiento:</strong> {{ aprendiz.fecha_de_nacimiento|date:"d/m/Y" }}</p>
+                        </div>
+
+                        <div class="col-md-12 border-start border-success border-4 ps-3 bg-light py-2 rounded">
+                            <h6 class="text-secondary fw-bold">Información de Contacto</h6>
+                            <p class="mb-1"><strong>Correo:</strong> <a href="mailto:{{ aprendiz.correo_electronico }}">{{ aprendiz.correo_electronico }}</a></p>
+                            <p class="mb-1"><strong>Teléfono:</strong> {{ aprendiz.telefono }}</p>
+                            <p class="mb-0"><strong>Ciudad:</strong> {{ aprendiz.ciudad }}</p>
+                            <p class="mb-0"><strong>Programa:</strong> {{ aprendiz.programa }}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

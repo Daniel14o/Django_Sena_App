@@ -1,0 +1,16 @@
+
+.bg-sena {
+    background-color: #39A900 !important; 
+}
+
+.color-sena {
+    color: #39A900 !important;
+}
+
+body {
+    background-color: #f8f9fa;
+}
+
+.navbar-brand {
+    font-size: 1.5rem;
+}
