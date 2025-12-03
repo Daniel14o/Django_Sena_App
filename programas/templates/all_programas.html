@@ -1,0 +1,65 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mt-4 mb-3">
+    <h2 class="section-title w-100 rounded-0">Base de Datos: Programas de Formación</h2>
+</div>
+
+<div class="table-responsive">
+    <table class="table table-striped table-bordered align-middle table-hover table-sm" style="font-size: 0.85rem; white-space: nowrap;">
+        <thead class="table-dark text-center">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Nivel</th>
+                <th>Modalidad</th>
+                <th>Meses</th>
+                <th>Horas</th>
+                <th>Centro Formación</th>
+                <th>Regional</th>
+                <th>F. Creación</th>
+                <th>F. Registro</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for programa in programas %}
+            <tr>
+                <td class="text-center">
+                    <a href="{% url 'programa_detalle' codigo_programa=programa.codigo %}" 
+                       class="text-decoration-none fw-bold text-success">
+                        {{ programa.codigo }}
+                    </a>
+                </td>
+
+                <td title="{{ programa.nombre }}">{{ programa.nombre|truncatechars:30 }}</td>
+                <td class="text-center">{{ programa.get_nivel_formacion_display }}</td>
+                <td class="text-center">{{ programa.get_modalidad_display }}</td>
+                <td class="text-center">{{ programa.duracion_meses }}</td>
+                <td class="text-center">{{ programa.duracion_horas }}</td>
+                <td>{{ programa.centro_formacion }}</td>
+                <td>{{ programa.regional }}</td>
+                <td class="text-center">{{ programa.fecha_creacion|date:"Y-m-d" }}</td>
+                <td class="text-center">{{ programa.fecha_registro|date:"Y-m-d H:i" }}</td>
+
+                <td class="text-center">
+                    {% if programa.estado == 'ACT' %}
+                        <span class="text-success fw-bold">Activo</span>
+                    {% elif programa.estado == 'INA' %}
+                        <span class="text-secondary fw-bold">Inactivo</span>
+                    {% else %}
+                        <span class="text-danger fw-bold">{{ programa.get_estado_display }}</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="11" class="text-center p-4 bg-light text-muted">
+                    <h3>No se encontraron programas</h3>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

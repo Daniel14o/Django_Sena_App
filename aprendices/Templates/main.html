@@ -10,9 +10,8 @@
             <p>Administra y consulta la información de los aprendices e instructores de manera eficiente.</p>
             
             <a href="{% url 'all_aprendices' %}" class="btn btn-light btn-lg fw-bold color-sena">Ver Aprendices</a>
-            
-            <button class="btn btn-outline-light btn-lg disabled">Ver Instructores</button>
-            <button class="btn btn-outline-light btn-lg disabled">Ver Programas</button>
+            <a href="{% url 'instructores_lista' %}" class="btn btn-light btn-lg fw-bold color-sena">Ver Instructores</a>
+            <a href="{% url 'programas_lista' %}" class="btn btn-light btn-lg fw-bold color-sena"> Ver Programas</a>
             <button class="btn btn-outline-light btn-lg disabled">Ver Cursos</button>
         </div>
     </div>
