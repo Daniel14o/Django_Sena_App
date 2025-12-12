@@ -1,0 +1,121 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-0">
+                <div class="card-header bg-primary text-white py-3">
+                    <h4 class="mb-0">
+                        <i class="bi bi-pencil-square"></i> Editando: {{ object.nombre }}
+                    </h4>
+                </div>
+                
+                <div class="card-body p-4 bg-light">
+                    <div class="alert alert-info border-0 shadow-sm mb-4">
+                        <i class="bi bi-info-circle-fill"></i> Estás modificando un registro existente. Asegúrate de verificar los cambios antes de guardar.
+                    </div>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        <h5 class="text-primary border-bottom pb-2 mb-3">Datos del Programa</h5>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-2">
+                                <label class="form-label fw-bold">Código</label>
+                                {{ form.codigo }}
+                                <div class="text-danger small">{{ form.codigo.errors }}</div>
+                            </div>
+                            <div class="col-md-10">
+                                <label class="form-label fw-bold">Nombre del Programa</label>
+                                {{ form.nombre }}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Nivel</label>
+                                {{ form.nivel_formacion }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Modalidad</label>
+                                {{ form.modalidad }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Estado Actual</label>
+                                {{ form.estado }}
+                            </div>
+                        </div>
+
+                        <div class="card card-body bg-white border-light mb-3">
+                            <h6 class="text-muted">Tiempos y Fechas</h6>
+                            <div class="row g-3">
+                                <div class="col-md-4">
+                                    <label class="form-label small">Meses</label>
+                                    {{ form.duracion_meses }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Horas</label>
+                                    {{ form.duracion_horas }}
+                                </div>
+                                <div class="col-md-4">
+                                    <label class="form-label small">Fecha Creación</label>
+                                    {{ form.fecha_creacion }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Centro de Formación</label>
+                                {{ form.centro_formacion }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Regional</label>
+                                {{ form.regional }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Descripción</label>
+                            {{ form.descripcion }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Competencias</label>
+                            {{ form.competencias }}
+                        </div>
+
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Perfil Egreso</label>
+                                {{ form.perfil_egreso }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Requisitos</label>
+                                {{ form.requisitos_ingreso }}
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-between">
+                            <a href="{% url 'programas:eliminar_programa' object.id %}" class="btn btn-outline-danger btn-sm align-self-center">
+                                <i class="bi bi-trash"></i> Borrar este programa
+                            </a>
+
+                            <div class="d-flex gap-2">
+                                <a href="{% url 'programas:lista_programas' %}" class="btn btn-secondary">Cancelar</a>
+                                <button type="submit" class="btn btn-primary px-4">
+                                    <i class="bi bi-check-lg"></i> Actualizar Datos
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

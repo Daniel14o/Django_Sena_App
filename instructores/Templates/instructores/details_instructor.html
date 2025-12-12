@@ -3,13 +3,13 @@
 {% block content %}
 <nav aria-label="breadcrumb" class="pt-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'main' %}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'instructores_lista' %}">Lista Instructores</a></li>
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'instructores:lista_instructores' %}">Instructores</a></li>
         <li class="breadcrumb-item active" aria-current="page">Detalle del Instructor</li>
     </ol>
 </nav>
 
-<h2 class="section-title">Perfil del Instructor</h2>
+<h2 class="section-title mb-4">Perfil del Instructor</h2>
 
 <div class="row">
     <div class="col-md-4 mb-4">
@@ -35,6 +35,15 @@
                 <div class="text-start">
                     <p class="mb-1"><strong class="text-muted">Fecha Vinculación:</strong><br> {{ instructor.fecha_vinculacion }}</p>
                     <p class="mb-1"><strong class="text-muted">Registro en Sistema:</strong><br> {{ instructor.fecha_registro|date:"d M Y H:i" }}</p>
+                </div>
+
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{% url 'instructores:editar_instructor' instructor.id %}" class="btn btn-outline-primary">
+                        <i class="bi bi-pencil"></i> Editar Datos
+                    </a>
+                    <a href="{% url 'instructores:eliminar_instructor' instructor.id %}" class="btn btn-outline-danger">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
                 </div>
             </div>
         </div>
@@ -120,7 +129,7 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-end">
-                <a href="{% url 'instructores_lista' %}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{% url 'instructores:lista_instructores' %}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </div>
     </div>

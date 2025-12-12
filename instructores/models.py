@@ -39,3 +39,6 @@ class Instructor(models.Model):
 
     def nombre_completo(self):
         return f"{self.nombre} {self.apellido}"
+    
+    def nombre_completo_instructor(self):
+        return f"{self.nombre} {self.apellido}"

@@ -6,7 +6,10 @@
         <h2>Lista de Aprendices SENA</h2>
         
         <div>
-            <span class="badge bg-info text-dark p-2">Total: {{ aprendices.count }} aprendices</span>
+            <span class="badge bg-info text-dark p-2 me-2">Total: {{ aprendices.count }}</span>
+            <a href="{% url 'aprendices:agregar_aprendiz' %}" class="btn btn-success">
+                <i class="bi bi-person-plus-fill"></i> Nuevo Aprendiz
+            </a>
         </div>
     </div>
 
@@ -27,7 +30,7 @@
             {% for a in aprendices %}
             <tr>
                 <td>
-                    <a href="{% url 'details' a.documento_identidad %}" class="fw-bold text-decoration-none">
+                    <a href="{% url 'aprendices:details' a.documento_identidad %}" class="fw-bold text-decoration-none">
                         {{ a.documento_identidad }}
                     </a>
                 </td>
@@ -38,7 +41,10 @@
                 <td>{{ a.programa }}</td>
                 <td>{{ a.fecha_de_nacimiento|date:"d/m/Y" }}</td>
                 <td>
-                    <button class="btn btn-outline-primary btn-sm">Editar</button>
+                    <div class="btn-group btn-group-sm">
+                        <a href="{% url 'aprendices:editar_aprendiz' a.documento_identidad %}" class="btn btn-outline-primary">Editar</a>
+                        <a href="{% url 'aprendices:eliminar_aprendiz' a.documento_identidad %}" class="btn btn-outline-danger">Eliminar</a>
+                    </div>
                 </td>
             </tr>
             {% endfor %}

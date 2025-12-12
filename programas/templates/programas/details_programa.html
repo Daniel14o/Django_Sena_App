@@ -3,8 +3,8 @@
 {% block content %}
 <nav aria-label="breadcrumb" class="pt-3">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="{% url 'main' %}">Inicio</a></li>
-        <li class="breadcrumb-item"><a href="{% url 'programas_lista' %}">Programas de Formación</a></li>
+        <li class="breadcrumb-item"><a href="/">Inicio</a></li>
+        <li class="breadcrumb-item"><a href="{% url 'programas:lista_programas' %}">Programas de Formación</a></li>
         <li class="breadcrumb-item active" aria-current="page">{{ programa.codigo }}</li>
     </ol>
 </nav>
@@ -60,6 +60,16 @@
                         <small>{{ programa.regional }}</small>
                     </li>
                 </ul>
+
+                <div class="d-grid gap-2 mt-4">
+                    <a href="{% url 'programas:editar_programa' programa.id %}" class="btn btn-outline-primary btn-sm">
+                        <i class="bi bi-pencil"></i> Editar Datos
+                    </a>
+                    <a href="{% url 'programas:eliminar_programa' programa.id %}" class="btn btn-outline-danger btn-sm">
+                        <i class="bi bi-trash"></i> Eliminar
+                    </a>
+                </div>
+
             </div>
             <div class="card-footer text-muted small">
                 Creado: {{ programa.fecha_creacion|date:"d M Y" }}
@@ -119,7 +129,7 @@
                 </div>
             </div>
             <div class="card-footer bg-white text-end">
-                <a href="{% url 'programas_lista' %}" class="btn btn-secondary">Volver al listado</a>
+                <a href="{% url 'programas:lista_programas' %}" class="btn btn-secondary">Volver al listado</a>
             </div>
         </div>
     </div>

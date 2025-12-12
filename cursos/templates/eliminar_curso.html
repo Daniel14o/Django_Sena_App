@@ -1,0 +1,30 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger shadow">
+                <div class="card-header bg-danger text-white text-center">
+                    <h4>Confirmar Eliminación</h4>
+                </div>
+                <div class="card-body text-center p-4">
+                    <p class="fs-5">¿Estás seguro de eliminar este curso?</p>
+                    <h3 class="fw-bold">{{ curso.nombre }}</h3>
+                    <p class="text-muted">Código: {{ curso.codigo }}</p>
+                    
+                    <div class="alert alert-warning">
+                        <i class="bi bi-exclamation-triangle"></i> Cuidado: Esto podría afectar a los aprendices inscritos.
+                    </div>
+
+                    <form method="post" class="mt-4">
+                        {% csrf_token %}
+                        <a href="{% url 'cursos:lista_cursos' %}" class="btn btn-secondary px-4">Cancelar</a>
+                        <button type="submit" class="btn btn-danger px-4">Sí, Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

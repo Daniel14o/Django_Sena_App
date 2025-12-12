@@ -4,15 +4,19 @@
 <div class="container mt-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="{% url 'main' %}" class="text-success">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="{% url 'all_aprendices' %}" class="text-success">Lista Aprendices</a></li>
-            <li class="breadcrumb-item active" aria-current="page">{{ aprendiz.nombre }} {{ aprendiz.apellido }}</li>
+            <li class="breadcrumb-item"><a href="{% url 'aprendices:main' %}" class="text-success">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'aprendices:ver_aprendices' %}" class="text-success">Lista Aprendices</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ aprendiz.nombre }}</li>
         </ol>
     </nav>
 
     <div class="card shadow">
-        <div class="card-header bg-sena text-white">
+        <div class="card-header bg-sena text-white d-flex justify-content-between align-items-center">
             <h4 class="mb-0">Perfil del Aprendiz</h4>
+            <div>
+                <a href="{% url 'aprendices:editar_aprendiz' aprendiz.documento_identidad %}" class="btn btn-light btn-sm text-dark">Editar</a>
+                <a href="{% url 'aprendices:eliminar_aprendiz' aprendiz.documento_identidad %}" class="btn btn-danger btn-sm">Eliminar</a>
+            </div>
         </div>
         <div class="card-body">
             <div class="row align-items-center">

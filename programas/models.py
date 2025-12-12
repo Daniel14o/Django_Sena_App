@@ -50,6 +50,6 @@ class Programa(models.Model):
         verbose_name_plural = "Programas de Formación"
         ordering = ['nombre']
 
-    def str(self):
-        return f"{self.nombre} ({self.codigo})"
+    def __str__(self):
+        return self.nombre
     

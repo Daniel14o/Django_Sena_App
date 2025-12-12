@@ -1,0 +1,114 @@
+{% extends "master.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card shadow border-0">
+                <div class="card-header bg-success text-white py-3">
+                    <h4 class="mb-0"><i class="bi bi-plus-circle-fill"></i> Registrar Nuevo Programa</h4>
+                </div>
+                
+                <div class="card-body p-4 bg-light">
+                    <p class="text-muted mb-4">Complete los campos para inscribir un nuevo programa de formación en el sistema.</p>
+
+                    <form method="post" novalidate>
+                        {% csrf_token %}
+                        
+                        {% if form.non_field_errors %}
+                            <div class="alert alert-danger">{{ form.non_field_errors }}</div>
+                        {% endif %}
+
+                        <h5 class="text-success border-bottom pb-2 mb-3">1. Identificación del Programa</h5>
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Código</label>
+                                {{ form.codigo }}
+                                <div class="text-danger small">{{ form.codigo.errors }}</div>
+                            </div>
+                            <div class="col-md-9">
+                                <label class="form-label fw-bold">Nombre del Programa</label>
+                                {{ form.nombre }}
+                                <div class="text-danger small">{{ form.nombre.errors }}</div>
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Nivel de Formación</label>
+                                {{ form.nivel_formacion }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Modalidad</label>
+                                {{ form.modalidad }}
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label fw-bold">Estado Inicial</label>
+                                {{ form.estado }}
+                            </div>
+                        </div>
+
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Duración (Meses)</label>
+                                {{ form.duracion_meses }}
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">Duración (Horas)</label>
+                                {{ form.duracion_horas }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha Creación</label>
+                                {{ form.fecha_creacion }}
+                            </div>
+                        </div>
+
+                        <h5 class="text-success border-bottom pb-2 mb-3 mt-4">2. Detalles Específicos</h5>
+                        
+                        <div class="row g-3 mb-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Centro de Formación</label>
+                                {{ form.centro_formacion }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Regional</label>
+                                {{ form.regional }}
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Descripción General</label>
+                            {{ form.descripcion }}
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Competencias</label>
+                            {{ form.competencias }}
+                        </div>
+
+                         <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Perfil de Egreso</label>
+                                {{ form.perfil_egreso }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Requisitos de Ingreso</label>
+                                {{ form.requisitos_ingreso }}
+                            </div>
+                        </div>
+
+                        <hr class="my-4">
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a href="{% url 'programas:lista_programas' %}" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-success px-4">
+                                <i class="bi bi-save"></i> Guardar Registro
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

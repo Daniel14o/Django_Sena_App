@@ -1,0 +1,89 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'aprendices:main' %}" class="text-success">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'cursos:lista_cursos' %}" class="text-success">Cursos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">{{ curso.codigo }}</li>
+        </ol>
+    </nav>
+
+    <div class="card shadow">
+        <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+            <h4 class="mb-0">{{ curso.nombre }}</h4>
+            <div>
+                <a href="{% url 'cursos:editar_curso' curso.id %}" class="btn btn-light btn-sm text-dark">
+                    <i class="bi bi-pencil"></i> Editar
+                </a>
+                <a href="{% url 'cursos:eliminar_curso' curso.id %}" class="btn btn-danger btn-sm">
+                    <i class="bi bi-trash"></i> Eliminar
+                </a>
+            </div>
+        </div>
+        
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3 border-start border-primary border-4 ps-3 bg-light py-2 rounded">
+                        <h5 class="text-primary fw-bold">Información General</h5>
+                        <p class="mb-1"><strong>Código:</strong> {{ curso.codigo }}</p>
+                        <p class="mb-1"><strong>Programa:</strong> {{ curso.programa }}</p>
+                        <p class="mb-1"><strong>Instructor Líder:</strong> {{ curso.instructor_coordinador }}</p>
+                        <p class="mb-1"><strong>Aula/Ambiente:</strong> {{ curso.aula }}</p>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3 border-start border-warning border-4 ps-3 bg-light py-2 rounded">
+                        <h5 class="text-warning text-dark fw-bold">Detalles de Ejecución</h5>
+                        <p class="mb-1"><strong>Estado:</strong> 
+                            <span class="badge bg-secondary">{{ curso.get_estado_display }}</span>
+                        </p>
+                        <p class="mb-1"><strong>Fecha Inicio:</strong> {{ curso.fecha_inicio|date:"d/m/Y" }}</p>
+                        <p class="mb-1"><strong>Fecha Fin:</strong> {{ curso.fecha_fin|date:"d/m/Y" }}</p>
+                        <p class="mb-1"><strong>Horario:</strong> {{ curso.horario }}</p>
+                        <p class="mb-0"><strong>Cupos Máximos:</strong> {{ curso.cupos_maximos }}</p>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+
+            {% if curso.observaciones %}
+            <div class="alert alert-info">
+                <strong>Observaciones:</strong> {{ curso.observaciones }}
+            </div>
+            {% endif %}
+
+            <div class="row mt-4">
+                <div class="col-md-6">
+                    <h6>Instructores Asignados ({{ curso.instructores.count }})</h6>
+                    <ul class="list-group list-group-flush">
+                        {% for instructor in curso.instructores.all %}
+                            <li class="list-group-item px-0">{{ instructor }}</li>
+                        {% empty %}
+                            <li class="list-group-item px-0 text-muted small">No hay instructores adicionales.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h6>Aprendices Inscritos ({{ curso.aprendices.count }})</h6>
+                    <ul class="list-group list-group-flush">
+                        {% for aprendiz in curso.aprendices.all %}
+                            <li class="list-group-item px-0">{{ aprendiz }}</li>
+                        {% empty %}
+                            <li class="list-group-item px-0 text-muted small">No hay aprendices inscritos aún.</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        
+        <div class="card-footer text-end bg-white">
+            <a href="{% url 'cursos:lista_cursos' %}" class="btn btn-secondary">Volver al listado</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

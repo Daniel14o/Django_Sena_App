@@ -3,6 +3,11 @@
 {% block content %}
 <div class="d-flex justify-content-between align-items-center mt-4 mb-3">
     <h2 class="section-title w-100 rounded-0">Base de Datos: Programas de Formación</h2>
+    <div class="d-flex flex-row p-2">
+        <a href="{% url 'programas:crear_programa' %}" class="btn btn-success text-nowrap">
+            <i class="bi bi-plus-circle"></i> Nuevo Programa
+        </a>
+    </div>
 </div>
 
 <div class="table-responsive">
@@ -17,16 +22,14 @@
                 <th>Horas</th>
                 <th>Centro Formación</th>
                 <th>Regional</th>
-                <th>F. Creación</th>
-                <th>F. Registro</th>
                 <th>Estado</th>
-            </tr>
+                <th>Acciones</th> </tr>
         </thead>
         <tbody>
             {% for programa in programas %}
             <tr>
                 <td class="text-center">
-                    <a href="{% url 'programa_detalle' codigo_programa=programa.codigo %}" 
+                    <a href="{% url 'programas:detalle_programa' programa.id %}" 
                        class="text-decoration-none fw-bold text-success">
                         {{ programa.codigo }}
                     </a>
@@ -39,8 +42,6 @@
                 <td class="text-center">{{ programa.duracion_horas }}</td>
                 <td>{{ programa.centro_formacion }}</td>
                 <td>{{ programa.regional }}</td>
-                <td class="text-center">{{ programa.fecha_creacion|date:"Y-m-d" }}</td>
-                <td class="text-center">{{ programa.fecha_registro|date:"Y-m-d H:i" }}</td>
 
                 <td class="text-center">
                     {% if programa.estado == 'ACT' %}
@@ -51,10 +52,21 @@
                         <span class="text-danger fw-bold">{{ programa.get_estado_display }}</span>
                     {% endif %}
                 </td>
+
+                <td class="text-center">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <a href="{% url 'programas:editar_programa' programa.id %}" class="btn btn-outline-primary" title="Editar">
+                            <i class="bi bi-pencil-square"></i>
+                        </a>
+                        <a href="{% url 'programas:eliminar_programa' programa.id %}" class="btn btn-outline-danger" title="Eliminar">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="11" class="text-center p-4 bg-light text-muted">
+                <td colspan="10" class="text-center p-4 bg-light text-muted">
                     <h3>No se encontraron programas</h3>
                 </td>
             </tr>

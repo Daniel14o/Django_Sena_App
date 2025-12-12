@@ -1,0 +1,60 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h2>Gestión de Cursos</h2>
+        <div>
+            <span class="badge bg-secondary p-2 me-2">Total: {{ cursos.count }}</span>
+            <a href="{% url 'cursos:crear_curso' %}" class="btn btn-success">
+                <i class="bi bi-plus-lg"></i> Crear Nuevo Curso
+            </a>
+        </div>
+    </div>
+
+    <table class="table table-striped table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>Código</th>
+                <th>Nombre</th>
+                <th>Programa</th>
+                <th>Inicio</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for curso in cursos %}
+            <tr>
+                <td><strong>{{ curso.codigo }}</strong></td>
+                <td>{{ curso.nombre }}</td>
+                <td>{{ curso.programa }}</td>
+                <td>{{ curso.fecha_inicio|date:"d/m/Y" }}</td>
+                <td>
+                    {% if curso.estado == 'PRO' %}
+                        <span class="badge bg-info text-dark">Programado</span>
+                    {% elif curso.estado == 'EJE' %}
+                        <span class="badge bg-success">En Ejecución</span>
+                    {% elif curso.estado == 'FIN' %}
+                        <span class="badge bg-secondary">Finalizado</span>
+                    {% else %}
+                        <span class="badge bg-warning">{{ curso.estado }}</span>
+                    {% endif %}
+                </td>
+                <td>
+                    <div class="btn-group btn-group-sm">
+                        <a href="{% url 'cursos:detalle_curso' curso.id %}" class="btn btn-info" title="Ver"><i class="bi bi-eye"></i></a>
+                        <a href="{% url 'cursos:editar_curso' curso.id %}" class="btn btn-warning" title="Editar"><i class="bi bi-pencil"></i></a>
+                        <a href="{% url 'cursos:eliminar_curso' curso.id %}" class="btn btn-danger" title="Eliminar"><i class="bi bi-trash"></i></a>
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="6" class="text-center p-4">No hay cursos registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'master.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h4 class="mb-0">Crear Nuevo Curso</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Código</label>
+                                {{ form.codigo }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Programa</label>
+                                {{ form.programa }}
+                            </div>
+                            
+                            <div class="col-12">
+                                <label class="form-label fw-bold">Nombre del Curso</label>
+                                {{ form.nombre }}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha Inicio</label>
+                                {{ form.fecha_inicio }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Fecha Fin</label>
+                                {{ form.fecha_fin }}
+                            </div>
+
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Instructor Líder</label>
+                                {{ form.instructor_coordinador }}
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label fw-bold">Estado</label>
+                                {{ form.estado }}
+                            </div>
+                            
+                            {% for field in form %}
+                                {% if field.name not in 'codigo,programa,nombre,fecha_inicio,fecha_fin,instructor_coordinador,estado' %}
+                                    <div class="col-md-6">
+                                        <label class="form-label fw-bold">{{ field.label }}</label>
+                                        {{ field }}
+                                    </div>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+
+                        <hr class="mt-4">
+                        <div class="text-end">
+                            <a href="{% url 'cursos:lista_cursos' %}" class="btn btn-secondary">Cancelar</a>
+                            <button type="submit" class="btn btn-success">Guardar Curso</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
